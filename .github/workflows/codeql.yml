@@ -1,0 +1,142 @@
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
+#
+# You may wish to alter this file to override the set of languages analyzed,
+# or to provide custom queries or build logic.
+#
+# ******** NOTE ********
+# We have attempted to detect the languages in your repository. Please check
+# the `language` matrix defined below to confirm you have the correct set of
+# supported CodeQL languages.
+#
+name: "CodeQL Advanced"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '35 4 * * 5'
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    # Runner size impacts CodeQL analysis time. To learn more, please see:
+    #   - https://gh.io/recommended-hardware-resources-for-running-codeql
+    #   - https://gh.io/supported-runners-and-hardware-resources
+    #   - https://gh.io/using-larger-runners (GitHub.com only)
+    # Consider using larger runners or machines with greater resources for possible analysis time improvements.
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    permissions:
+      # required for all workflows
+      security-events: write
+
+      # required to fetch internal or private CodeQL packs
+      packages: read
+
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - language: actions
+          build-mode: none
+        # CodeQL supports the following values keywords for 'language': 'actions', 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'rust', 'swift'
+        # Use `c-cpp` to analyze code written in C, C++ or both
+        # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
+        # Use 'javascript-typescript' to analyze code written in JavaScript, TypeScript or both
+        # To learn more about changing the languages that are analyzed or customizing the build mode for your analysis,
+        # see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning.
+        # If you are analyzing a compiled language, you can modify the 'build-mode' for that language to customize how
+        # your codebase is analyzed, see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/codeql-code-scanning-for-compiled-languages
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Add any setup steps before running the `github/codeql-action/init` action.
+    # This includes steps like installing compilers or runtimes (`actions/setup-node`
+    # or others). This is typically only required for manual builds.
+    # - name: Setup runtime (example)
+    #   uses: actions/setup-example@v1
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+        # If you wish to specify custom queries, you can do so here or in a config file.
+        # By default, queries listed here will override any specified in a config file.
+        # Prefix the list here with "+" to use these queries and those in the config file.
+
+        # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
+        # queries: security-extended,security-and-quality
+
+    # If the analyze step fails for one of the languages you are analyzing with
+    # "We were unable to automatically build your code", modify the matrix above
+    # to set the build mode to "manual" for that language. Then modify this step
+    # to build your code.
+    # ℹ️ Command-line programs to run using the OS shell.
+    # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
+    - if: matrix.build-mode == 'manual'
+      shell: bash
+      run: |
+        echo 'If you are using a "manual" build mode for one or more of the' \
+          'languages you are analyzing, replace this with the commands to build' \
+          'your code, for example:'
+        echo '  make bootstrap'
+        echo '  make release'
+        exit 1
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
+                    - الاسم: إعداد Java JDK
+  الاستخدامات: actions/setup-java@v5.0.0
+  مع:
+    # إصدار جافا المطلوب إعداده. يتطلب إصدار جافا كاملاً أو جزئياً. راجع أمثلة على بناء الجملة المدعوم في ملف README.
+    إصدار java: # اختياري
+    # مسار ملف `.java-version`. اطلع على أمثلة على بناء الجملة المدعوم في ملف README.
+    ملف إصدار java: # اختياري
+    # توزيعات جافا. راجع قائمة التوزيعات المدعومة في ملف README
+    توزيع:
+    # نوع الحزمة (jdk، jre، jdk+fx، jre+fx)
+    java-package: # اختياري، الافتراضي هو jdk
+    # هندسة الحزمة (الافتراضي هو هندسة مشغل الإجراء)
+    الهندسة المعمارية: # اختياري
+    # المسار إلى حيث يوجد JDK المضغوط
+    ملف jdk: # اختياري
+    # قم بتعيين هذا الخيار إذا كنت تريد أن يتحقق الإجراء من أحدث إصدار متاح يلبي مواصفات الإصدار
+    التحقق الأحدث: # اختياري
+    # مُعرِّف مستودع إدارة التوزيع في ملف pom.xml. الافتراضي هو `github`
+    معرف الخادم: # اختياري، الافتراضي هو github
+    # اسم متغير البيئة لاسم المستخدم للمصادقة على مستودع Apache Maven. الافتراضي هو $GITHUB_ACTOR
+    اسم مستخدم الخادم: # اختياري، الافتراضي هو GITHUB_ACTOR
+    # اسم متغير البيئة لكلمة المرور أو الرمز المميز للمصادقة على مستودع Apache Maven. القيمة الافتراضية هي $GITHUB_TOKEN
+    كلمة مرور الخادم: # اختياري، الافتراضي هو GITHUB_TOKEN
+    # المسار الذي سيتم فيه كتابة ملف settings.xml. الافتراضي هو ~/.m2.
+    مسار الإعدادات: # اختياري
+    # استبدل ملف settings.xml إن وجد. القيمة الافتراضية هي "صحيح".
+    overwrite-settings: # اختياري، الافتراضي هو true
+    # مفتاح GPG الخاص للاستيراد. الافتراضي هو سلسلة فارغة.
+    gpg-private-key: # اختياري
+    # اسم متغير البيئة لعبارة مرور المفتاح الخاص GPG. الافتراضي هو $GPG_PASSPHRASE.
+    gpg-passphrase: # اختياري
+    # اسم منصة البناء لتخزين التبعيات مؤقتًا. يمكن أن يكون "maven" أو "gradle" أو "sbt".
+    ذاكرة التخزين المؤقت: # اختياري
+    # مسار ملف التبعيات: pom.xml، build.gradle، build.sbt، إلخ. يمكن استخدام هذا الخيار مع خيار "cache". إذا تم حذفه، يبحث الإجراء عن ملف التبعيات في المستودع بأكمله. يدعم هذا الخيار استخدام أحرف البدل وقائمة بأسماء الملفات لتخزين تبعيات متعددة مؤقتًا.
+    مسار اعتماد ذاكرة التخزين المؤقت: # اختياري
+    # حل بديل لتمرير حالة المهمة إلى خطوة نشر المهمة. هذا المتغير غير مخصص للإعداد اليدوي.
+    حالة الوظيفة: # اختياري، الافتراضي هو ${{ job.status }}
+    # الرمز المُستخدم للمصادقة عند جلب بيانات الإصدار المُستضافة على github.com، مثل إصدار Microsoft من OpenJDK. عند تشغيل هذا الإجراء على github.com، تكون القيمة الافتراضية كافية. عند التشغيل على GHES، يمكنك تمرير رمز وصول شخصي إلى github.com إذا كنت تواجه قيودًا على السرعة.
+    الرمز المميز: # اختياري، الافتراضي هو ${{ github.server_url == 'https://github.com' && github.token || '' }}
+    # اسم مُعرِّف سلسلة أدوات Maven إذا لم يكن الاسم الافتراضي "${distribution}_${java-version}" مطلوبًا. راجع أمثلة على الصياغة المدعومة في ملف "الاستخدام المتقدم".
+    معرف سلسلة أدوات mvn: # اختياري
+    # اسم مورد سلسلة أدوات Maven إذا لم يكن الاسم الافتراضي "${distribution}" مطلوبًا. راجع أمثلة على الصياغة المدعومة في ملف الاستخدام المتقدم.
+    mvn-toolchain-vendor: # اختياري
+          
