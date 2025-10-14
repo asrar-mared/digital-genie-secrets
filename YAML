@@ -1,0 +1,5 @@
+"yaml.customTags": [
+    "!Scalar-example scalar",
+    "!Seq-example sequence",
+    "!Mapping-example mapping"
+]
