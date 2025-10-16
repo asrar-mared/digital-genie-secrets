@@ -1,0 +1,9 @@
+نشر_المراجعة:
+  المرحلة: النشر
+  النص:
+    - صدى "أضف نصًا هنا ينشر الكود على البنية التحتية الخاصة بك"
+  بيئة:
+    الاسم: مراجعة/$CI_COMMIT_REF_NAME
+    عنوان URL: https://$CI_ENVIRONMENT_SLUG.example.com
+  قواعد:
+    - إذا: $CI_PIPELINE_SOURCE == "merge_request_event"
