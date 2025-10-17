@@ -1,228 +1,47 @@
-# 🔒 سياسة الأمان | Security Policy
+# Security Policy
 
-## 🛡️ الإصدارات المدعومة | Supported Versions
+Full details of the Automattic Security Policy can be found on [automattic.com](https://automattic.com/security/).
 
-نحن نلتزم بتوفير تحديثات أمنية للإصدارات التالية:
+## Supported Versions
 
-| الإصدار | الدعم الأمني |
-| ------- | ------------ |
-| 3.x.x   | ✅ مدعوم كاملاً |
-| 2.5.x   | ✅ مدعوم |
-| 2.0.x   | ⚠️ دعم محدود |
-| < 2.0   | ❌ غير مدعوم |
+Generally, only the latest version of Jetpack and its associated plugins have continued support. If a critical vulnerability is found in the current version of a plugin, we may opt to backport any patches to previous versions. 
 
----
+## Reporting a Vulnerability
 
-## 🚨 الإبلاغ عن ثغرة أمنية | Reporting a Vulnerability
+Our HackerOne program covers the below plugin software, as well as a variety of related projects and infrastructure:
 
-### 📋 كيفية الإبلاغ
+* [Jetpack](https://jetpack.com/)
+* Jetpack Backup
+* Jetpack Boost
+* Jetpack CRM
+* Jetpack Protect
+* Jetpack Search
+* Jetpack Social
+* Jetpack VideoPress
 
-إذا اكتشفت ثغرة أمنية في **digital-genie-secrets**، يرجى اتباع الخطوات التالية:
+**For responsible disclosure of security issues and to be eligible for our bug bounty program, please submit your report via the [HackerOne](https://hackerone.com/automattic) portal.**
 
-#### 1️⃣ **لا تفتح Issue عام**
-الثغرات الأمنية يجب أن تبقى سرية حتى يتم إصلاحها.
+Our most critical targets are:
 
-#### 2️⃣ **أرسل تقرير مفصل**
+* Jetpack and the Jetpack composer packages (all within this repo)
+* Jetpack.com -- the primary marketing site.
+* cloud.jetpack.com -- a management site.
+* wordpress.com -- the shared management site for both Jetpack and WordPress.com sites.
 
-📧 **البريد الإلكتروني**: security@digital-genie.com
+For more targets, see the `In Scope` section on [HackerOne](https://hackerone.com/automattic).
 
-📝 **المعلومات المطلوبة**:
-```
-- وصف الثغرة
-- الخطوات لإعادة إنتاج المشكلة
-- التأثير المحتمل
-- الإصدار المتأثر
-- PoC (Proof of Concept) إن أمكن
-- توصيات للإصلاح (اختياري)
-```
+_Please note that the **WordPress software is a separate entity** from Automattic. Please report vulnerabilities for WordPress through [the WordPress Foundation's HackerOne page](https://hackerone.com/wordpress)._
 
-#### 3️⃣ **استخدام التشفير**
-🔐 يُفضل تشفير الرسالة باستخدام مفتاح PGP الخاص بنا:
+## Guidelines
 
-```
-Key ID: 0x1234567890ABCDEF
-Fingerprint: XXXX XXXX XXXX XXXX XXXX
-```
+We're committed to working with security researchers to resolve the vulnerabilities they discover. You can help us by following these guidelines:
 
-[📥 تحميل المفتاح العام](./security/pgp-public-key.asc)
+*   Follow [HackerOne's disclosure guidelines](https://www.hackerone.com/disclosure-guidelines).
+*   Pen-testing Production:
+    *   Please **setup a local environment** instead whenever possible. Most of our code is open source (see above).
+    *   If that's not possible, **limit any data access/modification** to the bare minimum necessary to reproduce a PoC.
+    *   **_Don't_ automate form submissions!** That's very annoying for us, because it adds extra work for the volunteers who manage those systems, and reduces the signal/noise ratio in our communication channels.
+    *   To be eligible for a bounty, all of these guidelines must be followed.
+*   Be Patient - Give us a reasonable time to correct the issue before you disclose the vulnerability.
 
----
-
-## ⏱️ الجدول الزمني للاستجابة
-
-| المرحلة | الوقت المتوقع |
-|---------|---------------|
-| 📨 تأكيد الاستلام | 24 ساعة |
-| 🔍 التحليل الأولي | 3-5 أيام |
-| 🛠️ تطوير الإصلاح | 7-14 يوم |
-| ✅ إصدار التحديث | بعد الاختبار |
-| 📢 الإعلان العام | بعد 30 يوم |
-
----
-
-## 🏆 برنامج مكافآت الثغرات | Bug Bounty Program
-
-نحن نقدر جهود الباحثين الأمنيين ونقدم مكافآت للثغرات المكتشفة:
-
-### 💰 جدول المكافآت
-
-| الخطورة | الوصف | المكافأة |
-|---------|-------|----------|
-| 🔴 **Critical** | تنفيذ أكواد عن بعد، اختراق كامل | $5,000 - $10,000 |
-| 🟠 **High** | تصعيد صلاحيات، SQL Injection | $2,000 - $5,000 |
-| 🟡 **Medium** | XSS، CSRF، تسريب بيانات محدود | $500 - $2,000 |
-| 🟢 **Low** | مشاكل تكوين، تسريب معلومات | $100 - $500 |
-
-### ✅ الثغرات المؤهلة
-
-- تنفيذ أكواد عن بعد (RCE)
-- حقن SQL
-- تجاوز المصادقة
-- تصعيد الصلاحيات
-- Cross-Site Scripting (XSS)
-- CSRF
-- تسريب بيانات حساسة
-- ثغرات التشفير
-
-### ❌ خارج النطاق
-
-- هجمات الهندسة الاجتماعية
-- هجمات DoS/DDoS
-- ثغرات في خدمات الطرف الثالث
-- مشاكل قديمة معروفة
-- Self-XSS
-- Clickjacking على صفحات عامة
-
----
-
-## 🔐 أفضل الممارسات الأمنية
-
-### للمطورين
-
-```python
-# ✅ استخدم دائماً معاملات آمنة
-cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
-
-# ❌ تجنب الاستعلامات المباشرة
-cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
-```
-
-```python
-# ✅ تحقق من المدخلات
-from digital_genie.validators import sanitize_input
-
-user_input = sanitize_input(request.data)
-
-# ❌ لا تثق بالمدخلات مباشرة
-dangerous = request.data  # غير آمن!
-```
-
-### للمستخدمين
-
-1. 🔑 استخدم كلمات مرور قوية
-2. 🔄 فعّل المصادقة الثنائية (2FA)
-3. 📱 حدّث النظام بانتظام
-4. 🔒 لا تشارك المفاتيح السرية
-5. 📊 راقب السجلات الأمنية
-
----
-
-## 🛠️ الثغرات المعروفة والإصلاحات
-
-### الإصدار 3.0.1 (2025-01-15)
-
-#### CVE-2025-0001 - إصلاح
-**الخطورة**: 🟠 High  
-**الوصف**: إمكانية تجاوز المصادقة في وحدة API  
-**الإصلاح**: تحديث إلى الإصدار 3.0.2+  
-**الشكر لـ**: محمد أحمد (@security_researcher)
-
----
-
-## 📜 التزاماتنا الأمنية
-
-### 🎯 التزاماتنا
-
-- ✅ الاستجابة السريعة للثغرات
-- ✅ الشفافية في التعامل مع المشاكل
-- ✅ تحديثات أمنية منتظمة
-- ✅ توثيق شامل للإصلاحات
-- ✅ حماية خصوصية المبلغين
-
-### 🤝 نتوقع منك
-
-- 🔒 الحفاظ على سرية الثغرة
-- ⏳ منحنا وقتاً معقولاً للإصلاح
-- 🚫 عدم استغلال الثغرة
-- 📝 تقديم معلومات واضحة ومفصلة
-- ✅ اتباع سياسة الإفصاح المسؤول
-
----
-
-## 🔍 عملية التدقيق الأمني
-
-### المراجعات الدورية
-
-| النشاط | التكرار |
-|--------|---------|
-| 🔎 فحص الكود | أسبوعياً |
-| 🛡️ اختبار الاختراق | شهرياً |
-| 🔐 مراجعة التشفير | ربع سنوي |
-| 📊 تدقيق السجلات | يومياً |
-| 🔄 تحديث التبعيات | أسبوعياً |
-
----
-
-## 📞 جهات الاتصال الأمنية
-
-### فريق الأمان
-
-| الدور | البريد الإلكتروني |
-|-------|-------------------|
-| 🛡️ مدير الأمان | security-lead@digital-genie.com |
-| 🔧 فريق الاستجابة | incident-response@digital-genie.com |
-| 📧 العام | security@digital-genie.com |
-
-### أوقات الاستجابة
-
-- 🚨 **طوارئ حرجة**: 24/7
-- 🟠 **خطورة عالية**: خلال 24 ساعة
-- 🟡 **خطورة متوسطة**: خلال 3 أيام
-- 🟢 **خطورة منخفضة**: خلال 7 أيام
-
----
-
-## 📚 موارد إضافية
-
-### 🔗 روابط مفيدة
-
-- [📖 دليل الأمان](./docs/security-guide.md)
-- [🛠️ أدوات الفحص](./tools/security-scanner/)
-- [📊 تقارير الأمان](./reports/security/)
-- [🎓 التدريب الأمني](./docs/training/)
-
-### 📖 مراجع
-
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [CWE Top 25](https://cwe.mitre.org/top25/)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-
----
-
-## ⚖️ إخلاء المسؤولية
-
-هذا المشروع مفتوح المصدر ويُقدم "كما هو" دون أي ضمانات. نبذل قصارى جهدنا لضمان الأمان، لكن لا يمكننا ضمان خلو النظام تماماً من الثغرات.
-
----
-
-<div align="center">
-
-**🔒 نشكرك على مساعدتنا في جعل digital-genie-secrets أكثر أماناً**
-
-**صُنع بـ 🛡️ من فريق أسرار المارد الرقمي**
-
----
-
-*آخر تحديث: أكتوبر 2025*
-
-</div>
+We also expect you to comply with all applicable laws. You're responsible to pay any taxes associated with your bounties.
